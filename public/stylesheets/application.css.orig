@@ -22,7 +22,11 @@ blockquote, q {quotes:"" "";}
 a img {border:none;}
 
 /* typography.css */
+<<<<<<< HEAD
+body {font-size:75%;color:#444;background:#fff url("/images/background_green.png") repeat-x;font-family:"lucida grande", "tahoma", Arial, Helvetica, sans-serif;}
+=======
 body {font-size:75%;color:#444;background:#CCCCCC url("/images/background_green_2.png") repeat-x;font-family:"lucida grande", "tahoma", Arial, Helvetica, sans-serif;}
+>>>>>>> fa879708017a3ea5e501de8087e3e402ce2b3ba1
 h1, h2, h3, h4, h5, h6 {font-weight:normal;color:#111;font-family:;}
 h1 {font-size:3em;line-height:1;margin-bottom:0.5em;}
 h2 {font-size:2em;margin-bottom:0.75em;}
