@@ -84,7 +84,7 @@
 				:orientation => 'horizontal', 
 				:stacked => false,
 				:bar_colors => @species.count.times.inject([]){|s,x| s << "%06x" % (rand * 0xffffff)},
-				:size => '630x140', 
+				:size => "630x#{35*@species.count}", 
 				:legend => @species.map{|x| x[:name]}, 
 				:format => 'image_tag',
 				:axis_with_labels => ['x'])%>
