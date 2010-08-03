@@ -1,3 +1,4 @@
+rails --version 2.3.8
 google-spreadsheet-ruby --version 0.1.1
 google_static_maps_helper --version 1.3.5
 googlecharts --version 1.6.0
