@@ -100,12 +100,22 @@
 					
 				<h3><span class="green">4.</span> How we made this visualisation</h3>
 				
-						<p class="explanation">
-							The source code is available on github <%= link_to "here", "http://github.com/tokumine/IABIN-demo"%>
-						</p>	
-
-
-
+						<div class="explanation" style="display:block;">
+							The source code is available <%= link_to "on github", "http://github.com/tokumine/IABIN-demo"%>.<br><br>
+							
+							The flow of control is as follows:
+							<ol>
+								<li>Retrieve information from Google Spreadsheet</li>
+								<li>Sort and clean data</li>
+								<li>Call Protectedplanet.net API to determine protectedness</li>
+								<li>Construct tables/graphs/maps</li>
+								<li>Display!</li>	
+							</ol>
+							
+							Below is abridged code for the code central to this demo application							
+						</div>	
+						
+						<script src="http://gist.github.com/506062.js?file=controller.rb"></script>
 				
 				</div>
 				<div class="span-6 last box logos" style="border-left:1em solid #eee;">
