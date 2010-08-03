@@ -83,7 +83,7 @@
 				:data => @species.map{|x|[x[:protected_survey_point_count].to_f/x[:survey_points].size]}, 
 				:orientation => 'horizontal', 
 				:stacked => false,
-				:bar_colors => @species.count.times.inject([]){|s,x| s << "0000#{(5*x).to_s(base=16)}"},
+				:bar_colors => @species.count.times.inject([]){|s,x| s << "%06x" % (rand * 0xffffff)},
 				:size => '630x140', 
 				:legend => @species.map{|x| x[:name]}, 
 				:format => 'image_tag',
@@ -91,7 +91,9 @@
 
 
 				<p class="explanation">
-					<b>How can this better inform conservation?</b>
+					<b>How can this better inform conservation?</b><br>
+					Of the 4 species surveyed, Eubalaena australis and Potos flavus (Schreber, 1774) have a comparativly lower degree of protection.<br>
+					 As this tool is API driven, it will <b>automatically synchronise</b> with protectedplanet.net and with changes to the Google Spreadsheet.					
 				</p>				
 								
 					<%= image_tag "bracket.png", :class => "bracket" %>
@@ -99,7 +101,7 @@
 				<h3><span class="green">4.</span> How we made this visualisation</h3>
 				
 						<p class="explanation">
-							The source code is available on github <%= link_to "here", "http://www.github.com"%>
+							The source code is available on github <%= link_to "here", "http://github.com/tokumine/IABIN-demo"%>
 						</p>	
 
 
