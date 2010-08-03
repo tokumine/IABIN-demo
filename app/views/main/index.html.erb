@@ -12,24 +12,24 @@
 			
 			<div id="content">			
 				<div class="span-16">
-					<h2><span class="green">1.</span> How are our species protected?</h2>
+					<h2>Are our species observations found within a protected area?</h2>
 						<p class="explanation">
-							Improvements in infrastructure for biodiversity information exchange make species location data more readily available than ever before. How are well are these species actually protected? <b>Can we improve our protection strategy?</b> 
+							The purpose of this page is to demonstrate the protectedplanet.net API for the IABIN technology meeting in Knoxville, August 2010.  In this example we combine protected areas information with species observation data.    <br><br>One of the most common questions we are asked is ‘Is this species found within a protected area?’.  We will explain how this is possible with the new API.<br><br>	  
 						</p>	
 					
 					<%= image_tag "bracket.png", :class => "bracket" %>
 					
 					
-					<h3><span class="green">2.</span> Sample GBIF species data for South America <%= link_to "edit", "http://spreadsheets0.google.com/ccc?key=tf6ot7TyP5Kk40zm9JQ7BVg&hl=en#gid=0"%></h3>
+					<h3>Sample GBIF species data for South America <%= link_to "edit", "http://spreadsheets0.google.com/ccc?key=tf6ot7TyP5Kk40zm9JQ7BVg&hl=en#gid=0"%></h3>
 						 <iframe width='630' height='250' frameborder='0' src='http://spreadsheets.google.com/pub?key=0Aj9ghrEmlkpbdGY2b3Q3VHlQNUtrNDB6bTlKUTdCVmc&hl=en&single=true&gid=0&output=html&widget=true'></iframe>	
 						<p class="explanation">
-							The data used in this demonstration comes from GBIF. It is foccussed on South American species, and <b> <%= link_to "is editable here", "http://spreadsheets0.google.com/ccc?key=tf6ot7TyP5Kk40zm9JQ7BVg&hl=en#gid=0"%></b>. Future implementations could assess many multiples of species.<br><br>
-							Once our species locations are entered into Google Spreadsheets, we can <b>automate the process of checking protected area status with the protectedplanet.net API</b>.
+							The data used in this demonstration comes from the GBIF data portal. We extracted a very small sample of species in the IABIN region, and <b> <%= link_to "is editable here", "http://spreadsheets0.google.com/ccc?key=tf6ot7TyP5Kk40zm9JQ7BVg&hl=en#gid=0"%></b>. Feel free to alter the data with other species information.  In the future we would hope to extract these type of information from a similar API from other IABIN TNs or GBIF.  Future implementations could also assess many multiples of species.<br><br>
+							Once our species locations are entered into Google Spreadsheets, we can <b>automate the process of checking protected area status with the protectedplanet.net API.</b>  See the bottom of the webpage for a simple explanation of the API.
 						</p>	
 					
 					<%= image_tag "bracket.png", :class => "bracket" %>
 					
-				<h3><span class="green">3.</span> Species protection status</h3>
+				<h3>Combine species data with the protectedplanet.net API</h3>
 				<%= @map.to_html %>
 			  <div style="width: 630px; height: 400px;">
 			    <%= @map.div %>
@@ -91,14 +91,14 @@
 
 
 				<p class="explanation">
-					<b>How can this better inform conservation?</b><br>
-					Of the 4 species surveyed, Eubalaena australis and Potos flavus (Schreber, 1774) have a comparativly lower degree of protection.<br>
-					 As this tool is API driven, it will <b>automatically synchronise</b> with protectedplanet.net and with changes to the Google Spreadsheet.					
+					<b>How could this be used to better inform conservation?</b><br><br>
+					Although this is a demonstration of technology, you can see how by combining datasets from two thematic networks we create real value for conservation planning.  In this case we can see of the 4 species, Eubalaena australis and Potos flavus (Schreber, 1774) have a comparativly lower degree of protection.<br>
+					 As this tool is API driven, it will <b>automatically synchronise</b> with protectedplanet.net and with changes to the Google Spreadsheet.  Creating these type of tools will demonstrate the true value of the thematics networks.					
 				</p>				
 								
 					<%= image_tag "bracket.png", :class => "bracket" %>
 					
-				<h3><span class="green">4.</span> How we made this visualisation</h3>
+				<h3>How we made this visualisation</h3>
 				
 						<div class="explanation" style="display:block;">
 							The source code is available <%= link_to "on github", "http://github.com/tokumine/IABIN-demo"%>.<br><br>
@@ -112,12 +112,64 @@
 								<li>Display!</li>	
 							</ol>
 							
-							Below is abridged code for the code central to this demo application							
+							Below is abridged code central to this demo application.  We used ruby to create it however other languages will work equally well with the API because the calls are a simple http requests.
+														
 						</div>	
 						
 						<script src="http://gist.github.com/506062.js?file=controller.rb"></script>
+						
+						<br><br>
+						<h3>Protectedplanet.net API details</h3>
+						<div class="explanation" style="display:block;">
+							<b>A basic example of the protected planet api</b><br><br>
+
+						To make it easy to understand the API we will look at the protection status of one observation from one species.  We will need the longitude and latitude of the observation.  We can then make a call to the API. <br><br> 
+
+							There are two types of calls you can make.  The first is very simple and returns the name and ID of the protected area.  The url to this request looks like this:<br><br>
+							<%= link_to "http://protectedplanet.net/api/site_atts_by_point/83.5/35.6", "http://protectedplanet.net/api/site_atts_by_point/83.5/35.6"%>
+							<br>
+							[http://protectedplanet.net/api/site_atts_by_point/long/lat]<br><br>
+
+								And you get back some JSON which looks like:<br>
+								[   {
+									name: "Qiangtang"
+									id: 45165
+									slug: "Qiangtang_Nature_Reserve"
+								  }
+								]
+	<br><br>
+							If you want more detailed information about the protected areas you can use a different call:<br><br>
+
+							<%= link_to "http://protectedplanet.net/api/sites_by_point/83.5/35.6", "http://protectedplanet.net/api/sites_by_point/83.5/35.6"%><br>
+							[http://protectedplanet.net/api/sites_by_point/long/lat]<br><br>
+
+							This returns the geometry of the boundary in GeoJSON format along with some key pieces of information about each protected area.<br><br>						
+						</div>	
+						<script src="http://gist.github.com/506270.js?file=sample_protected_planet_api"></script>
+						<div class="explanation" style="display:block;">
+							<b>Other API requests</b><br><br>
+
+							We are working on extending the API even further to make it even easier to interrogate the IABIN network of protected areas data.  Here are others you may like to try:<br><br>
+
+							
+
+							http://protectedplanet.net/api/search_suggest?q=yourtext - returns 1st 5 suggested protected area that match your search<br><br>
+
+							http://protectedplanet.net/api/search?q=yourtext - returns fill list of search results based on your search term<br><br>
+
+							http://protectedplanet.net/api/site/:WDPAID/json - returns protected areas details<br><br>
+
+							POSTs: 
+
+							
+														
+						</div>
+				
 				
 				</div>
+				
+				
+				
 				<div class="span-6 last box logos" style="border-left:1em solid #eee;">
 					<h3>API's used</h3>
 						<%= link_to image_tag('images/1_pp.png'), "http://protectedplanet.net" %>
