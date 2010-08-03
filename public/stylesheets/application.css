@@ -297,7 +297,10 @@ div.logos img{
 .pa_list{
 	background:#444;
 	color:white;	
-	border:5px solid #aaa;
+	/*border:5px solid #aaa;*/
+	box-shadow: 3px 3px 7px #999;
+	-webkit-box-shadow: 3px 3px 7px #999;
+	-moz-box-shadow: 3px 3px 7px #999;  
 	padding:1em;
 }
 
