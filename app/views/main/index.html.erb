@@ -1,0 +1,128 @@
+<html>
+	<head>
+		<%= stylesheet_link_tag "application" %>
+		<%= javascript_include_tag 'jquery', 'application' %>
+	</head>
+	
+	<body>		
+		<div class="container">		
+			<div id="title">
+				<h1 id="iabin">&nbsp;</h1>
+			</div>
+			
+			<div id="content">			
+				<div class="span-16">
+					<h2><span class="green">1.</span> How are our species protected?</h2>
+						<p class="explanation">
+							Improvements in infrastructure for biodiversity information exchange make species location data more readily available than ever before. How are well are these species actually protected? <b>Can we improve our protection strategy?</b> 
+						</p>	
+					
+					<%= image_tag "bracket.png", :class => "bracket" %>
+					
+					
+					<h3><span class="green">2.</span> Sample GBIF species data for South America <%= link_to "edit", "http://spreadsheets0.google.com/ccc?key=tf6ot7TyP5Kk40zm9JQ7BVg&hl=en#gid=0"%></h3>
+						 <iframe width='630' height='250' frameborder='0' src='http://spreadsheets.google.com/pub?key=0Aj9ghrEmlkpbdGY2b3Q3VHlQNUtrNDB6bTlKUTdCVmc&hl=en&single=true&gid=0&output=html&widget=true'></iframe>	
+						<p class="explanation">
+							The data used in this demonstration comes from GBIF. It is foccussed on South American species, and <b> <%= link_to "is editable here", "http://spreadsheets0.google.com/ccc?key=tf6ot7TyP5Kk40zm9JQ7BVg&hl=en#gid=0"%></b>. Future implementations could assess many multiples of species.<br><br>
+							Once our species locations are entered into Google Spreadsheets, we can <b>automate the process of checking protected area status with the protectedplanet.net API</b>.
+						</p>	
+					
+					<%= image_tag "bracket.png", :class => "bracket" %>
+					
+				<h3><span class="green">3.</span> Species protection status</h3>
+				<%= @map.to_html %>
+			  <div style="width: 630px; height: 400px;">
+			    <%= @map.div %>
+			  </div>
+			
+				<table style="width:630px;" class="protection">
+					<thead>
+						<tr>
+							<th>species</th>
+							<th>records</th>
+							<th>protection status</th>
+							<th>Important Protected Areas</th>						
+						</tr>
+					</thead>
+					<tbody>						
+						<% @species.each do |species|%>
+							<tr class="<%= cycle 'odd', 'even' %>">
+								<td><%= species[:name] %></td>
+												
+								<td><%= species[:survey_points].size %></td>
+								<td>
+									<%= link_to image_tag('icons/world.png'), "#", :class=>"show_pas"%> 
+									<% pp = species[:protected_survey_point_count] %>
+									<%= pp %> /
+										<span style="color:red;">
+											<%= species[:survey_points].size - pp %>
+										</span> 
+									(<%= number_with_precision((pp.to_f / species[:survey_points].size) * 100, :precision => 1) %>%)
+							
+									<div class="pa_list" style="display:none;position:absolute;">	
+										<%= image_tag species[:map]%>
+									<div>								
+								</td>						
+								<td>
+									<%= link_to image_tag('icons/world.png'), "#", :class=>"show_pas"%>
+									<%= species[:pa_links].size %> 							
+									<div class="pa_list" style="display:none;position:absolute;">
+										<ul>
+											<% species[:pa_links].each do |pa| %>
+												<li><%= link_to pa[:slug].humanize, pa[:url]%></li>
+											<% end -%>	
+										</ul>							
+									</div>
+								</td>
+							</tr>								
+						<% end -%>	
+					</tbody>	
+				</table>				
+				
+				<%= Gchart.bar(
+				:data => @species.map{|x|[x[:protected_survey_point_count].to_f/x[:survey_points].size]}, 
+				:orientation => 'horizontal', 
+				:stacked => false,
+				:bar_colors => @species.count.times.inject([]){|s,x| s << "0000#{(5*x).to_s(base=16)}"},
+				:size => '630x140', 
+				:legend => @species.map{|x| x[:name]}, 
+				:format => 'image_tag',
+				:axis_with_labels => ['x'])%>
+
+
+				<p class="explanation">
+					<b>How can this better inform conservation?</b>
+				</p>				
+								
+					<%= image_tag "bracket.png", :class => "bracket" %>
+					
+				<h3><span class="green">4.</span> How we made this visualisation</h3>
+				
+						<p class="explanation">
+							The source code is available on github <%= link_to "here", "http://www.github.com"%>
+						</p>	
+
+
+
+				
+				</div>
+				<div class="span-6 last box logos" style="border-left:1em solid #eee;">
+					<h3>API's used</h3>
+						<%= link_to image_tag('images/1_pp.png'), "http://protectedplanet.net" %>
+						<%= link_to image_tag('images/2_gbif.png'), "http://gbif.org" %>
+						<%= link_to image_tag('images/3_proto.png'), "http://vis.stanford.edu/protovis/" %>
+						<%= link_to image_tag('images/4_gdoc.png'), "http://docs.google.com/" %>
+						<%= link_to image_tag('images/5_gmap.png'), "http://maps.google.com" %>
+						<%= link_to image_tag('images/6_wcmc.png'), "http://www.unep-wcmc.org" %>
+				</div>	
+						
+
+
+					
+
+				<div style="clear:left;"></div>	
+			</div>	
+		</div>
+	</body>	
+</html>
+

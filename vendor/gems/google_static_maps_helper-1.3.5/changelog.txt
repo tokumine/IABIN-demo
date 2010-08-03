@@ -1,0 +1,50 @@
+= v.1.3.5
+* Added support for icon on markers.
+* DEPRECATED Google API key as its no longer required when requesting a static map (will be removed from this gem in upcoming versions).
+
+= v.1.3.4
+* Paths are now as default encoding it's points with Google's encoding algorithm. Thanks to Joel Rosenberg for providing an easy class to use.
+This will cut the length of the generated URL quite a bit; down to between 1/3 and 1/2 of the old size.
+
+= v.1.3.3
+* We are now supporting ruby 1.9.1.
+
+= v.1.3.2
+* Location will now round and reduce numbers so it doesn't get above a precision of 6.
+* Added two helper methods to Location: distance_to(another_location) and endpoint(distance, heading).
+* a_location.endpoints_for_circle_with_radius(radius) returns an array of end points making a circle around location.
+
+= v.1.3.1
+* Wrote better docs for all classes.
+* You can add points to Paths with Path.new(point, second_point, :color => :red, :fillcolor => :blue)
+* The "DSL" supports adding paths to the map.
+
+= v.1.3.0
+* It is now possible to create Paths which is used to represent lines and polygons in the map. This is not included in the little DSL we have though.
+* The map may now request a URL for a specified image format. As an exampe, set map.format = :jpg to get smaller images (but also less quality).
+* You can now request different map types, like satellite, hybrid, terrain etc.
+* The marker has no responsibility for it's location any more. It hands off the work to Location object if it is asked for anything related to Location.
+
+= v.1.2.3
+* It is no longer needed to send in key, sensor and size to the Map's constructor as long as these values are set on GoogleStaticMapsHelper.
+* A map does now respond to width and height.
+* The map can now receive size as string, array or hash.
+* The map will raise an error if width/height is above the limit which Google currently has (640 pixels).
+
+= v.1.2.2
+* It is now possible to chain the pushing of markers on to map.
+
+= v.1.2.1
+* Bugfix: Sensor wasn't included in the generated URL if it was false.
+
+= v.1.2.0
+* Added a simple DSL interface which should make it easier to use.
+* Fixed a missing escape of an get parameter.
+
+= v.1.1.0
+* Refactored Map class. No longer using internal hash to store the options, but instance variables
+* Refactored Marker class. Same as above.
+* Wrote better test for testing params the URL returned.
+
+= v.1.0.0
+First release. Basic functionality in place which makes usable.
